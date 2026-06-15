@@ -24,11 +24,13 @@ Each finding is a JSON object:
 
 ## violation_type Values
 
+`violation_type` format: `<Prefix>.<Value>` (e.g. `ARCH.LAYER_BOUNDARY`, `SOLID.SRP`, `METRICS.COMPLEXITY`)
+
 | Prefix | Values | Severity |
 |---|---|---|
 | `ARCH` | `LAYER_BOUNDARY`, `CIRCULAR_DEP`, `FAT_CONTROLLER` | error |
-| `SOLID` | `SRP`, `OCP`, `LSP`, `ISP`, `DIP` | error (SRP: warning if 10-14 methods) |
-| `METRICS` | `COMPLEXITY`, `FILE_SIZE_ERROR`, `FILE_SIZE_WARNING`, `GOD_OBJECT`, `LARGE_FUNCTION` | warning or error per threshold |
+| `SOLID` | `SRP`, `OCP`, `LSP`, `ISP`, `DIP` | error or warning (thresholds defined in verify-solid SKILL.md) |
+| `METRICS` | `COMPLEXITY`, `FILE_SIZE_ERROR`, `FILE_SIZE_WARNING`, `GOD_OBJECT`, `LARGE_FUNCTION` | warning or error (thresholds defined in verify-metrics SKILL.md) |
 | `API` | `NO_PAGINATION`, `NO_VERSIONING`, `WRONG_STATUS_CODE`, `NO_ENTITY_LINKING`, `NO_TIMEOUT`, `NO_CONTENT_NEGOTIATION` | warning |
 
 ## Severity Rules

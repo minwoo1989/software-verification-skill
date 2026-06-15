@@ -11,7 +11,7 @@ Reference for language-specific tooling. All verify-* sub-skills read from here 
 
 1. **Parse project config** for actual test settings:
    - Python: `pytest.ini` or `[tool.pytest.ini_options]` in `pyproject.toml` → `testpaths`
-   - JS/TS: `jest.config.js` → `testMatch` / `rootDir`
+   - JS/TS: `jest.config.js` or `vitest.config.ts` / `vitest.config.js` → `testMatch` / `include`
    - Java: `pom.xml` → `<testSourceDirectory>` or `build.gradle` → `test.sourceSet`
 2. **Fall back** to language convention if not found (see table below)
 3. **Ask user** if ambiguous: "Where should I generate architecture tests? (default: `tests/architecture/`)"
