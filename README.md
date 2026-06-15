@@ -136,10 +136,9 @@ skills/
   metrics/             → /svs:metrics
   architecture/        → /svs:architecture
   api-design/          → /svs:api-design
-  _shared/
-    findings-schema/   → /svs:findings-schema
-    language-adapters/ → /svs:language-adapters
-    test-generator/    → /svs:test-generator
+  findings-schema/     → /svs:findings-schema
+  language-adapters/   → /svs:language-adapters
+  test-generator/      → /svs:test-generator
 ```
 
 ---
