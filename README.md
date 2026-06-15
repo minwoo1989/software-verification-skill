@@ -28,11 +28,11 @@ Detects SOLID violations, layer boundary breaches, circular dependencies, cyclom
 
 | Skill | Invocation | Description |
 |---|---|---|
-| `verify-structure` | `/verify:verify-structure` | Entry point — detects, confirms, dispatches, reports, generates |
-| `solid` | `/verify:solid` | SOLID principle violations (SRP, OCP, LSP, ISP, DIP) |
-| `architecture` | `/verify:architecture` | Layer boundaries, circular deps, Fat Controller |
-| `metrics` | `/verify:metrics` | Cyclomatic complexity, file size, God Object |
-| `api-design` | `/verify:api-design` | REST anti-patterns (pagination, versioning, status codes, etc.) |
+| `verify-structure` | `/svs:verify-structure` | Entry point — detects, confirms, dispatches, reports, generates |
+| `solid` | `/svs:solid` | SOLID principle violations (SRP, OCP, LSP, ISP, DIP) |
+| `architecture` | `/svs:architecture` | Layer boundaries, circular deps, Fat Controller |
+| `metrics` | `/svs:metrics` | Cyclomatic complexity, file size, God Object |
+| `api-design` | `/svs:api-design` | REST anti-patterns (pagination, versioning, status codes, etc.) |
 
 ---
 
@@ -43,7 +43,7 @@ Detects SOLID violations, layer boundary breaches, circular dependencies, cyclom
 Run the entry point skill from your project root:
 
 ```
-/verify:verify-structure
+/svs:verify-structure
 ```
 
 **First run — Claude will:**
@@ -91,10 +91,10 @@ These tests run on every CI build and fail if a violation is introduced.
 ### Run sub-skills individually
 
 ```
-/verify:metrics        — Complexity, file size, God Object
-/verify:solid          — SOLID principle violations
-/verify:architecture   — Layer boundaries, circular deps, Fat Controller
-/verify:api-design     — REST anti-patterns
+/svs:metrics        — Complexity, file size, God Object
+/svs:solid          — SOLID principle violations
+/svs:architecture   — Layer boundaries, circular deps, Fat Controller
+/svs:api-design     — REST anti-patterns
 ```
 
 ---
@@ -131,15 +131,15 @@ Edit this file to adjust layer rules. All sub-skills read from it automatically.
 
 ```
 skills/
-  verify-structure/    → /verify:verify-structure  (entry point)
-  solid/               → /verify:solid
-  metrics/             → /verify:metrics
-  architecture/        → /verify:architecture
-  api-design/          → /verify:api-design
+  verify-structure/    → /svs:verify-structure  (entry point)
+  solid/               → /svs:solid
+  metrics/             → /svs:metrics
+  architecture/        → /svs:architecture
+  api-design/          → /svs:api-design
   _shared/
-    findings-schema/   → /verify:findings-schema
-    language-adapters/ → /verify:language-adapters
-    test-generator/    → /verify:test-generator
+    findings-schema/   → /svs:findings-schema
+    language-adapters/ → /svs:language-adapters
+    test-generator/    → /svs:test-generator
 ```
 
 ---

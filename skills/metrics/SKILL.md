@@ -7,7 +7,7 @@ description: Use when checking a codebase for cyclomatic complexity, file size, 
 
 Detects code quality metric violations. Always runs regardless of architecture type — language detection alone is sufficient.
 
-**REQUIRED REFERENCE:** Read `verify:findings-schema` for output format. Read `verify:language-adapters` for AST tool per language.
+**REQUIRED REFERENCE:** Read `svs:findings-schema` for output format. Read `svs:language-adapters` for AST tool per language.
 
 ## Thresholds
 
@@ -20,12 +20,12 @@ Detects code quality metric violations. Always runs regardless of architecture t
 
 ## Process
 
-1. Read `verify:language-adapters` for the AST tool to use.
+1. Read `svs:language-adapters` for the AST tool to use.
 2. For Python: use `ast.parse()` to walk all `.py` files under declared source root.
 3. For each function/method: count branch nodes for complexity. Count lines for length.
 4. For each class: count public methods. If > 20, emit `METRICS.GOD_OBJECT` finding.
 5. For each file: count lines.
-6. Emit findings following `verify:findings-schema`.
+6. Emit findings following `svs:findings-schema`.
 
 ## Python Implementation (generated test pattern)
 

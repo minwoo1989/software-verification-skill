@@ -7,7 +7,7 @@ description: Use when verifying layer boundary compliance, dependency direction,
 
 Detects architectural structural violations. Requires `.verify-structure.yml` for layer boundary checks. Circular dependency and Fat Controller checks run without config.
 
-**REQUIRED REFERENCE:** Read `verify:findings-schema` and `verify:language-adapters`.
+**REQUIRED REFERENCE:** Read `svs:findings-schema` and `svs:language-adapters`.
 
 ## Checks
 

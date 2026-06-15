@@ -1,5 +1,5 @@
 {
-  "name": "verify",
+  "name": "svs",
   "description": "Structural verification skills — detect architecture violations and generate CI-enforcing architecture tests",
   "version": "1.0.0",
   "author": {

@@ -19,7 +19,7 @@ digraph flow {
     "Dispatch sub-skills" [shape=box];
     "Report findings" [shape=box];
     "Offer test generation" [shape=diamond];
-    "Invoke verify:test-generator" [shape=box];
+    "Invoke svs:test-generator" [shape=box];
     "Done" [shape=doublecircle];
 
     "Check .verify-structure.yml" -> "Config exists" [label="yes"];
@@ -30,9 +30,9 @@ digraph flow {
     "Write .verify-structure.yml" -> "Dispatch sub-skills";
     "Dispatch sub-skills" -> "Report findings";
     "Report findings" -> "Offer test generation";
-    "Offer test generation" -> "Invoke verify:test-generator" [label="yes"];
+    "Offer test generation" -> "Invoke svs:test-generator" [label="yes"];
     "Offer test generation" -> "Done" [label="no"];
-    "Invoke verify:test-generator" -> "Done";
+    "Invoke svs:test-generator" -> "Done";
 }
 ```
 
@@ -64,12 +64,12 @@ digraph flow {
 
 | Condition | Sub-skills invoked |
 |---|---|
-| Always | `verify:metrics` |
-| OOP language | `verify:solid` |
-| `.verify-structure.yml` present | `verify:architecture` |
-| Web framework detected | `verify:api-design` |
+| Always | `svs:metrics` |
+| OOP language | `svs:solid` |
+| `.verify-structure.yml` present | `svs:architecture` |
+| Web framework detected | `svs:api-design` |
 
-**REQUIRED SUB-SKILL:** Use `verify:metrics`, `verify:solid`, `verify:architecture`, `verify:api-design` as appropriate.
+**REQUIRED SUB-SKILL:** Use `svs:metrics`, `svs:solid`, `svs:architecture`, `svs:api-design` as appropriate.
 
 ## Report Format
 
