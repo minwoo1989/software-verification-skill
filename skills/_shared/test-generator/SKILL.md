@@ -7,7 +7,7 @@ description: Use when converting structural violation findings into permanent ar
 
 Converts findings from verify-* sub-skills into actual test files written to the project.
 
-**REQUIRED REFERENCE:** Read `verify:language-adapters` to determine test framework and file location.
+**REQUIRED REFERENCE:** Read `svs:language-adapters` to determine test framework and file location.
 
 ## Process
 

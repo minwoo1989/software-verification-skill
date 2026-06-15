@@ -7,7 +7,7 @@ description: Use when verifying SOLID principle compliance in an object-oriented
 
 Detects SOLID principle violations. Runs for OOP languages (Python, Java, Kotlin, C#, TypeScript with classes).
 
-**REQUIRED REFERENCE:** Read `verify:findings-schema` for output format. Read `verify:language-adapters` for AST tool.
+**REQUIRED REFERENCE:** Read `svs:findings-schema` for output format. Read `svs:language-adapters` for AST tool.
 
 ## Rules
 

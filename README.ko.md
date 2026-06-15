@@ -28,11 +28,11 @@ SOLID 원칙 위반, 레이어 경계 침범, 순환 의존성, 순환 복잡도
 
 | 스킬 | 호출 방법 | 설명 |
 |---|---|---|
-| `verify-structure` | `/verify:verify-structure` | 진입점 — 감지·확인·조율·리포트·테스트 생성 |
-| `solid` | `/verify:solid` | SOLID 원칙 위반 (SRP, OCP, LSP, ISP, DIP) |
-| `architecture` | `/verify:architecture` | 레이어 경계·순환 의존성·Fat Controller |
-| `metrics` | `/verify:metrics` | 순환 복잡도·파일 크기·God Object |
-| `api-design` | `/verify:api-design` | REST 안티패턴 6종 |
+| `verify-structure` | `/svs:verify-structure` | 진입점 — 감지·확인·조율·리포트·테스트 생성 |
+| `solid` | `/svs:solid` | SOLID 원칙 위반 (SRP, OCP, LSP, ISP, DIP) |
+| `architecture` | `/svs:architecture` | 레이어 경계·순환 의존성·Fat Controller |
+| `metrics` | `/svs:metrics` | 순환 복잡도·파일 크기·God Object |
+| `api-design` | `/svs:api-design` | REST 안티패턴 6종 |
 
 ---
 
@@ -43,7 +43,7 @@ SOLID 원칙 위반, 레이어 경계 침범, 순환 의존성, 순환 복잡도
 프로젝트 루트에서 진입점 스킬을 실행합니다:
 
 ```
-/verify:verify-structure
+/svs:verify-structure
 ```
 
 **첫 실행 시 Claude가 수행하는 작업:**
@@ -89,10 +89,10 @@ tests/architecture/test_api_design.py        ← API 설계 위반
 ### 서브스킬 단독 실행
 
 ```
-/verify:metrics        ← 복잡도·파일 크기·God Object
-/verify:solid          ← SOLID 원칙 위반
-/verify:architecture   ← 레이어 경계·순환 의존성·Fat Controller
-/verify:api-design     ← REST 안티패턴 6종
+/svs:metrics        ← 복잡도·파일 크기·God Object
+/svs:solid          ← SOLID 원칙 위반
+/svs:architecture   ← 레이어 경계·순환 의존성·Fat Controller
+/svs:api-design     ← REST 안티패턴 6종
 ```
 
 ---
@@ -129,15 +129,15 @@ architecture:
 
 ```
 skills/
-  verify-structure/    → /verify:verify-structure  (진입점)
-  solid/               → /verify:solid
-  metrics/             → /verify:metrics
-  architecture/        → /verify:architecture
-  api-design/          → /verify:api-design
+  verify-structure/    → /svs:verify-structure  (진입점)
+  solid/               → /svs:solid
+  metrics/             → /svs:metrics
+  architecture/        → /svs:architecture
+  api-design/          → /svs:api-design
   _shared/
-    findings-schema/   → /verify:findings-schema
-    language-adapters/ → /verify:language-adapters
-    test-generator/    → /verify:test-generator
+    findings-schema/   → /svs:findings-schema
+    language-adapters/ → /svs:language-adapters
+    test-generator/    → /svs:test-generator
 ```
 
 ---

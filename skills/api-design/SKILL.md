@@ -7,7 +7,7 @@ description: Use when verifying REST API design quality in a web backend codebas
 
 Detects REST API anti-patterns based on the 6 patterns validated by the PTIDEJ group (ICSOC 2021). Runs when the framework is a web server (Django, FastAPI, Spring, Express, NestJS, etc.).
 
-**REQUIRED REFERENCE:** Read `verify:findings-schema` and `verify:language-adapters`.
+**REQUIRED REFERENCE:** Read `svs:findings-schema` and `svs:language-adapters`.
 
 ## The 6 Anti-patterns
 

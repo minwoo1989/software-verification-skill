@@ -10,7 +10,7 @@
   },
   "plugins": [
     {
-      "name": "verify",
+      "name": "svs",
       "source": "./",
       "description": "Verify software structural integrity: SOLID violations, layer boundaries, circular deps, REST anti-patterns. Generates permanent CI-enforcing architecture tests.",
       "version": "1.0.0",
