@@ -1,0 +1,10 @@
+{
+  "name": "verify",
+  "description": "Structural verification skills — detect architecture violations and generate CI-enforcing architecture tests",
+  "version": "1.0.0",
+  "author": {
+    "name": "Pinkman",
+    "email": "minwoo1989@gmail.com"
+  },
+  "license": "MIT"
+}
