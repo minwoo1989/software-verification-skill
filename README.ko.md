@@ -88,8 +88,6 @@ tests/architecture/test_api_design.py        ← API 설계 위반
 
 ### 서브스킬 단독 실행
 
-특정 검증만 실행할 수도 있습니다:
-
 ```
 /verify:metrics        ← 복잡도·파일 크기·God Object
 /verify:solid          ← SOLID 원칙 위반
@@ -124,6 +122,23 @@ architecture:
 ```
 
 레이어 규칙은 이 파일을 직접 수정해 조정합니다. 모든 서브스킬이 자동으로 읽습니다.
+
+---
+
+## 플러그인 구조
+
+```
+skills/
+  verify-structure/    → /verify:verify-structure  (진입점)
+  solid/               → /verify:solid
+  metrics/             → /verify:metrics
+  architecture/        → /verify:architecture
+  api-design/          → /verify:api-design
+  _shared/
+    findings-schema/   → /verify:findings-schema
+    language-adapters/ → /verify:language-adapters
+    test-generator/    → /verify:test-generator
+```
 
 ---
 

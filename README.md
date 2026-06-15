@@ -127,6 +127,23 @@ Edit this file to adjust layer rules. All sub-skills read from it automatically.
 
 ---
 
+## Plugin Structure
+
+```
+skills/
+  verify-structure/    → /verify:verify-structure  (entry point)
+  solid/               → /verify:solid
+  metrics/             → /verify:metrics
+  architecture/        → /verify:architecture
+  api-design/          → /verify:api-design
+  _shared/
+    findings-schema/   → /verify:findings-schema
+    language-adapters/ → /verify:language-adapters
+    test-generator/    → /verify:test-generator
+```
+
+---
+
 ## Supported Languages
 
 | Language | AST Tool | Test Framework |
