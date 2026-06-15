@@ -1,0 +1,33 @@
+{
+  "name": "software-verification-skill",
+  "owner": {
+    "name": "Pinkman",
+    "email": "minwoo1989@gmail.com"
+  },
+  "metadata": {
+    "description": "Software structural verification skills — detect architecture violations and generate CI-enforcing tests",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "verify",
+      "source": "./",
+      "description": "Verify software structural integrity: SOLID violations, layer boundaries, circular deps, REST anti-patterns. Generates permanent CI-enforcing architecture tests.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Pinkman"
+      },
+      "category": "development",
+      "keywords": [
+        "architecture",
+        "solid",
+        "verification",
+        "ast",
+        "ci",
+        "structural-testing",
+        "archunit",
+        "dependency-analysis"
+      ]
+    }
+  ]
+}
