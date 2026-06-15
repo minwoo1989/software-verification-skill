@@ -1,5 +1,5 @@
 ---
-name: verify-solid
+name: solid
 description: Use when verifying SOLID principle compliance in an object-oriented codebase
 ---
 
@@ -64,7 +64,7 @@ def test_dip_domain_no_infrastructure_import():
             tree = ast.parse(py_file.read_text(encoding="utf-8"))
             for node in ast.walk(tree):
                 if isinstance(node, ast.ImportFrom) and node.module:
-                    if any(node.module.startswith(p.replace("/", "."))
+                    if any(node.module.startswith(".".join(Path(p).parts[1:]))
                            for p in infra_paths):
                         violations.append(f"{py_file}:{node.lineno} → {node.module}")
     assert not violations, "DIP violations:\n" + "\n".join(violations)

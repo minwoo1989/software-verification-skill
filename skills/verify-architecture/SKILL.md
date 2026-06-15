@@ -1,5 +1,5 @@
 ---
-name: verify-architecture
+name: architecture
 description: Use when verifying layer boundary compliance, dependency direction, circular dependencies, and Fat Controller violations in a layered or clean architecture codebase
 ---
 
@@ -24,16 +24,21 @@ import ast, yaml
 from pathlib import Path
 
 def _config():
-    return yaml.safe_load(Path(".verify-structure.yml").read_text())
+    cfg = Path(".verify-structure.yml")
+    if not cfg.exists():
+        return None
+    return yaml.safe_load(cfg.read_text())
 
 def test_layer_boundaries():
     config = _config()
+    if config is None:
+        return  # skip — no .verify-structure.yml
     layers = {l["name"]: l for l in config["architecture"]["layers"]}
     violations = []
     for layer_name, layer in layers.items():
         allowed = layer.get("allowed_imports", [])
         forbidden_prefixes = [
-            p.replace("/", ".")
+            ".".join(Path(p).parts[1:])
             for name, l in layers.items()
             if name not in allowed and name != layer_name
             for p in l.get("source_paths", [f"src/{name}"])
@@ -108,6 +113,7 @@ Count public methods/route handlers. If > 7, flag.
 ```python
 def test_no_fat_controllers():
     MAX_HANDLERS = 7
+    HTTP_METHODS = ("get", "post", "put", "patch", "delete")
     violations = []
     controller_dirs = ["src/api", "src/controllers", "src/views"]
     for ctrl_dir in controller_dirs:
@@ -115,15 +121,26 @@ def test_no_fat_controllers():
             continue
         for py_file in Path(ctrl_dir).rglob("*.py"):
             tree = ast.parse(py_file.read_text(encoding="utf-8"))
+            route_count = 0
             for node in ast.walk(tree):
+                if isinstance(node, ast.FunctionDef):
+                    for dec in node.decorator_list:
+                        attr = None
+                        if isinstance(dec, ast.Attribute):
+                            attr = dec
+                        elif isinstance(dec, ast.Call) and isinstance(dec.func, ast.Attribute):
+                            attr = dec.func
+                        if attr and attr.attr in HTTP_METHODS:
+                            route_count += 1
+                # Also count class-based controller methods
                 if isinstance(node, ast.ClassDef):
                     methods = [n for n in node.body
                                if isinstance(n, ast.FunctionDef)
                                and not n.name.startswith("_")]
                     if len(methods) > MAX_HANDLERS:
-                        violations.append(
-                            f"{py_file}: {node.name} has {len(methods)} methods"
-                        )
+                        violations.append(f"{py_file}: class {node.name} has {len(methods)} methods")
+            if route_count > MAX_HANDLERS:
+                violations.append(f"{py_file}: {route_count} route handlers (threshold: {MAX_HANDLERS})")
     if violations:
         print("Fat controllers (warning):\n" + "\n".join(violations))
 ```
@@ -150,4 +167,27 @@ class LayerTest {
         .matching("com.example.(*)..")
         .should().beFreeOfCycles();
 }
+```
+
+## Findings Output Example
+
+```json
+[
+  {
+    "violation_type": "ARCH.LAYER_BOUNDARY",
+    "severity": "error",
+    "file": "src/domain/user.py",
+    "line": 3,
+    "description": "Domain layer imports from Infrastructure layer (infrastructure.db)",
+    "suggested_fix": "Define UserRepository abstract interface in domain; implement it in infrastructure"
+  },
+  {
+    "violation_type": "ARCH.CIRCULAR_DEP",
+    "severity": "error",
+    "file": "src/application/user_service.py",
+    "line": 1,
+    "description": "Circular dependency: application.user_service → domain.user → application.user_service",
+    "suggested_fix": "Extract the shared dependency into a separate module with no back-references"
+  }
+]
 ```

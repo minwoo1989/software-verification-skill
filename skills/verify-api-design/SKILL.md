@@ -1,5 +1,5 @@
 ---
-name: verify-api-design
+name: api-design
 description: Use when verifying REST API design quality in a web backend codebase — detects missing pagination, versioning, incorrect status codes, and other anti-patterns
 ---
 
@@ -57,10 +57,14 @@ def _route_handlers(src_root="src"):
         for node in ast.walk(tree):
             if isinstance(node, ast.FunctionDef):
                 for decorator in node.decorator_list:
+                    # FastAPI: @router.get("/path") → ast.Call with func=ast.Attribute
+                    attr = None
                     if isinstance(decorator, ast.Attribute):
-                        method = decorator.attr  # get, post, put, patch, delete
-                        if method in ("get", "post", "put", "patch", "delete"):
-                            handlers.append((py_file, node, method))
+                        attr = decorator
+                    elif isinstance(decorator, ast.Call) and isinstance(decorator.func, ast.Attribute):
+                        attr = decorator.func
+                    if attr and attr.attr in ("get", "post", "put", "patch", "delete"):
+                        handlers.append((py_file, node, attr.attr))
     return handlers
 
 def test_list_endpoints_have_pagination():
@@ -91,4 +95,19 @@ def test_routes_have_version_prefix():
                                     f"{py_file}: APIRouter prefix '{prefix}' has no version"
                                 )
     assert not violations, "Missing API versioning:\n" + "\n".join(violations)
+```
+
+## Findings Output Example
+
+```json
+[
+  {
+    "violation_type": "API.NO_PAGINATION",
+    "severity": "warning",
+    "file": "src/api/users.py",
+    "line": 8,
+    "description": "GET list_users() has no pagination parameter (limit/offset/page/cursor)",
+    "suggested_fix": "Add query parameters: limit: int = 20, offset: int = 0"
+  }
+]
 ```

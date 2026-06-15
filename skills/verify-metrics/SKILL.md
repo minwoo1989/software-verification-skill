@@ -1,5 +1,5 @@
 ---
-name: verify-metrics
+name: metrics
 description: Use when checking a codebase for cyclomatic complexity, file size, and God Object violations as part of structural verification
 ---
 
@@ -23,7 +23,7 @@ Detects code quality metric violations. Always runs regardless of architecture t
 1. Read `verify:language-adapters` for the AST tool to use.
 2. For Python: use `ast.parse()` to walk all `.py` files under declared source root.
 3. For each function/method: count branch nodes for complexity. Count lines for length.
-4. For each class: count public methods. If > 20, emit `SOLID.SRP` finding as well.
+4. For each class: count public methods. If > 20, emit `METRICS.GOD_OBJECT` finding.
 5. For each file: count lines.
 6. Emit findings following `verify:findings-schema`.
 
@@ -80,6 +80,19 @@ def test_no_god_classes():
                 if len(public) > 20:
                     violations.append(f"{py_file}: {node.name} ({len(public)} public methods)")
     assert not violations, "God classes detected:\n" + "\n".join(violations)
+
+def test_large_functions():
+    violations = []
+    for py_file in _src_files():
+        tree = ast.parse(py_file.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                length = node.end_lineno - node.lineno + 1
+                if length > 50:
+                    violations.append(
+                        f"{py_file}:{node.lineno} {node.name}() is {length} lines"
+                    )
+    assert not violations, "Large functions (>50 lines):\n" + "\n".join(violations)
 ```
 
 ## Findings Output Example

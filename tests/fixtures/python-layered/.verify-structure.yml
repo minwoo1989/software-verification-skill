@@ -1,0 +1,17 @@
+language: python
+framework: fastapi
+architecture:
+  type: layered
+  layers:
+    - name: domain
+      source_paths: [src/domain]
+      allowed_imports: []
+    - name: application
+      source_paths: [src/application]
+      allowed_imports: [domain]
+    - name: infrastructure
+      source_paths: [src/infrastructure]
+      allowed_imports: [domain, application]
+    - name: presentation
+      source_paths: [src/api]
+      allowed_imports: [application]
