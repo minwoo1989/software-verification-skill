@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Software structural verification skills — detect architecture violations and generate CI-enforcing tests",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "plugins": [
     {
       "name": "svs",
       "source": "./",
       "description": "Verify software structural integrity: SOLID violations, layer boundaries, circular deps, REST anti-patterns. Generates permanent CI-enforcing architecture tests.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Pinkman"
       },
