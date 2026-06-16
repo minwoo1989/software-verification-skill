@@ -1,7 +1,7 @@
 {
   "name": "svs",
   "description": "Structural verification skills — detect architecture violations and generate CI-enforcing architecture tests",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Pinkman",
     "email": "minwoo1989@gmail.com"
